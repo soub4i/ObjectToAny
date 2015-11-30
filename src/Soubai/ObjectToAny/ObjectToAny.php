@@ -25,7 +25,7 @@
 	 	*/
 		public static function FromArray($array)
 			{
-				$object = new stdClass();
+				$object = new \\stdClass();
 				foreach ($array as $key => $value) {
 					$object->$key = $value;
 				}
