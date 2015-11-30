@@ -1,0 +1,19 @@
+{
+    "name": "soubai/object-to-any",
+    "description": "ObjectToAny is a simple php class that can allow you to make a lot of Conversion(array,binary,json,xml)",
+    "license": "MIT",
+    "type": "library",
+    "keywords": ["Object","Array","XML","Binary","Convert","JSON"],
+    "authors": [
+        {
+            "name": "Abderrhim Soubai Elidrissi",
+            "email": "soubai@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-0": {
+            "Soubai\\": "src/"
+        }
+    }
+}
