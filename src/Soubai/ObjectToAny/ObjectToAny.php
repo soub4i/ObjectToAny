@@ -40,7 +40,7 @@
 		public static function ToArray($object)
 			{
 				self::_isObj($object);
-				return (Object) $object;
+				return (array) $object;
 			}
 
 		/**
@@ -61,7 +61,53 @@
 		
 		public static function FromJSON($value)
 			{
+
 				return json_decode($value);
+			}
+
+		/**
+		 * Convert a Object To CSV
+		 * @param Object $object Any Object of Class that can be Converted To YAML
+		 * @param Char $delimiter default ","
+		 * @param Char $enclosure default '"'
+		 */
+		
+		public static function ToCSV($object, $delimiter = ',', $enclosure = '"')
+			{
+				self::_isObj($object);
+       			$arr = array();
+       			$data ="";
+				if (self::_isAssociative(static::ToArray($object))) {
+				$arr[] = array_keys(static::ToArray($object));
+				$arr[] = array_values(static::ToArray($object));
+					foreach ($arr as $a) {
+						foreach ($a as $value) {
+							$data .= $enclosure.$value.$enclosure.$delimiter;
+									}
+							}
+					}
+					else {
+					$arr = static::ToArray($object);
+								foreach ($arr as $value) {
+				$data .= $enclosure.$value.$enclosure.$delimiter;
+					}
+				}
+		
+		 		$data=substr($data, 1, count($data)-4);
+       			return $data;
+			}
+
+		/**
+		 * Convert CSV To Object
+		 * @param String $value CVS Code that can be Converted To Object
+		 * @param Char $delimiter default ","
+		 * @param Char $enclosure default '"'
+		 * 
+		 * */
+		
+		public static function FromCSV($value)
+			{
+				return static::FromArray(str_getcsv($value));
 			}
 
 		/**
