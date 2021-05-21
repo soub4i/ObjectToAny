@@ -84,7 +84,7 @@ class ObjectToAny
     {
         self::_isObj($object);
         $arr = array();
-        $data ="";
+        $data = "";
         if (self::_isAssociative(static::ToArray($object))) {
             $arr[] = array_keys(static::ToArray($object));
             $arr[] = array_values(static::ToArray($object));
@@ -93,15 +93,14 @@ class ObjectToAny
                     $data .= $enclosure.$value.$enclosure.$delimiter;
                 }
             }
-        }
-        else {
+        } else {
             $arr = static::ToArray($object);
             foreach ($arr as $value) {
                 $data .= $enclosure.$value.$enclosure.$delimiter;
             }
         }
 
-        $data=substr($data, 1, count($data)-4);
+        $data=substr($data, 1, count($data) - 4);
         return $data;
     }
 
@@ -164,24 +163,19 @@ class ObjectToAny
         $xml->setIndent(true);
         $xml->startDocument();
         $xml->startElement(get_class($object));
-        foreach (self::ToArray($object) as $k=>$v) {
+        foreach (self::ToArray($object) as $k => $v) {
             if (is_array($v)) {
                 $xml->startElement($k);
                 foreach ($v as $key => $value) {
                     if (self::_isAssociative($v)) {
                         $xml->writeElement($key, $value);
-                    }
-                    else{
+                    } else {
                         $xml->writeElement("Key".$key, $value);
-
                     }
                 }
-
                 $xml->endElement();
-            }
-            else {
+            } else {
                 $xml->writeElement($k, $v);
-
             }
         }
         $xml->endElement();
